@@ -16,13 +16,13 @@ KNN <- function(dist.mat, k = 5){
 }
 
 #' Generates meta cells for each cluster
-#' 
+#'
 #' @param counts.mat Matrix of filtered counts (genes X samples).
 #' @param dist.mat Distance matrix for this data.
 #' @param clust.vect Clustering vector. If not specified, entire matrix will be used.
 #' @param num.neighbors Number of neighbors to use in metacells. Default of 5.
 #' @param subset Number of cells to subset to. Default of 250. No subsetting if set equal to NULL.
-#' @param min.samps Minimum number of samples in a cluster required for meta cells. Default of 500. 
+#' @param min.samps Minimum number of samples in a cluster required for meta cells. Default of 500.
 #' @return A list of meta cell matrices for all clusters with enough samples.
 #' @export
 MetaCells <- function(counts.mat, dist.mat, clust.vect, num.neighbors = 5, subset = 250, min.samps = 500) {
@@ -44,7 +44,7 @@ MetaCells <- function(counts.mat, dist.mat, clust.vect, num.neighbors = 5, subse
       clust.counts <- counts.mat[,clust.samps]
       clust.dist <- dist.mat[clust.samps, clust.samps]
       knn.mat <- KNN(clust.dist, k = num.neighbors)
-      if (subset == NULL) {
+      if (is.null(subset)) {
         sub.samps <- clust.samps
       } else {
         sub.samps <- sample(clust.samps, subset)
